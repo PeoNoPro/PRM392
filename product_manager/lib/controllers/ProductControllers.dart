@@ -44,7 +44,7 @@ class ProductControllers{
     return List.from(listProduct)..sort((a,b)=> b.price.compareTo(a.price));
   }
 
-  static bool addPrice(Product product,){
+  static bool addProduct(Product product,){
     bool existed = listProduct.any((p)=> p.id == product.id);
     if(existed){
       return false;
@@ -58,7 +58,7 @@ class ProductControllers{
     if(index ==-1){
       return false;
     }
-    listProduct[index] = updateProduct;
+    listProduct[index] = updateProduct;//khởi tạo 1 thằng mới, add vào index của tk đã xóa
     return true;
   }
 
@@ -68,6 +68,10 @@ class ProductControllers{
     return listProduct.length<before;
   }
 
+  static List<Product> searchByName(String keyword){
+    return listProduct.where((p) => p.name.toLowerCase().contains(keyword.toLowerCase())).toList();
+  }
+
   static String generateId() {
     if (listProduct.isEmpty) {
       return '01';
@@ -75,5 +79,10 @@ class ProductControllers{
     int lastId = int.parse(listProduct.last.id);
     int newId = lastId + 1;
     return newId.toString().padLeft(2, '0');
+  }
+
+  static void increasePrice(double amount) {listProduct = listProduct.map((p) {
+      return p.copyTo(price: p.price + amount,);
+  }).toList();
   }
 }

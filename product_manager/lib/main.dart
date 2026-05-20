@@ -78,7 +78,7 @@ void main() {
         if(newProduct == null){
           View.showMessage('Add Product Failed!');
         }else{
-          bool result = ProductControllers.addPrice(newProduct);
+          bool result = ProductControllers.addProduct(newProduct);
           if (result) {
             View.showMessage('Add Product Success!');
           }else{
@@ -131,6 +131,18 @@ void main() {
         } else {
           View.showMessage('Delete Failed!');
         }
+        break;
+
+      case '8':
+        stdout.write('Enter amount increase: ');
+        double? amount = double.tryParse(stdin.readLineSync() ?? '',);
+        if (amount == null) {
+          View.showMessage('Invalid amount!');
+          break;
+        }
+        ProductControllers.increasePrice(amount);
+        View.showMessage('Increase Price Success!',);
+        View.displayProducts(ProductControllers.listProduct, 'Updated Products',);
         break;
 
       case '0':
